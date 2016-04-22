@@ -103,6 +103,13 @@ public class Enemy : MonoBehaviour {
     // TODO: enemy counter etc
     void die()
     {
+        int lootCount = Random.Range(0, 5);
+
+        for (int i = 0; i<lootCount; i++)
+        {
+            Instantiate(dropObject, transform.position, Random.rotation);
+        }
+
         Destroy(gameObject);
     }
 
