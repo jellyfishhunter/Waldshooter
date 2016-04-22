@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Loot : MonoBehaviour {
 
+    //testcomment
 	// Use this for initialization
 	void Start () {
 	
