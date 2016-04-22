@@ -94,6 +94,7 @@ MonoBehaviour:
   speed: 10
   hitValue: 5
   isPlayerBullet: 1
+  range: 100
 --- !u!135 &13568414
 SphereCollider:
   m_ObjectHideFlags: 1
