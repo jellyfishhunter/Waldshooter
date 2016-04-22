@@ -8,8 +8,17 @@ public class GameManager : MonoBehaviour {
 	private enum States{gameover, fightloop, buildloop, start};
 	private States myState;
 
+	[Header("Loop Timers")]
+	public float fightLoopTime = 5.0f; 
+	public float buildLooptime = 5.0f; 
+
+	[Header("Enemy related Stuff (Lists)")]
 	public List<Transform> enemySpawnPoints; 
 	public List<GameObject> enemys; 
+
+	[Header("Audio Files")]
+	public AudioClip fightLoopAudio; 
+	public AudioClip buildLoopAudio; 
 
 	bool isSpawningEnemys = false; 
 	bool loopTimerActive = false; 
@@ -29,7 +38,7 @@ public class GameManager : MonoBehaviour {
 		//BUILDLOOP
 		if (myState == States.buildloop) {
 			if (!loopTimerActive) {
-				StartCoroutine (LoopTimer (2.0f, myState, States.fightloop)); 
+				StartCoroutine (LoopTimer (buildLooptime, myState, States.fightloop)); 
 				loopTimerActive = true; 
 			}		
 		}
@@ -41,7 +50,7 @@ public class GameManager : MonoBehaviour {
 				isSpawningEnemys = true; 
 			}
 			if (!loopTimerActive) {
-				StartCoroutine (LoopTimer (4.0f, myState, States.buildloop)); 
+				StartCoroutine (LoopTimer (fightLoopTime, myState, States.buildloop)); 
 				loopTimerActive = true; 
 			}
 		}
@@ -78,6 +87,5 @@ public class GameManager : MonoBehaviour {
 	public void GameOver(){
 		myState = States.gameover; 
 		Debug.Log ("Gameover"); 
-		Destroy (this.gameObject); 
 	}
 }
