@@ -12,15 +12,18 @@ public class BaseTree : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		Debug.Log (hp); 
 	}
 
     public void hit(GameObject bullet)
     {
         hp -= bullet.GetComponent<Bullet>().hitValue;
-        if (hp <= 0)
-            Debug.Log("Base destroyed");
+
+		if (hp <= 0) {
+			Debug.Log("Base destroyed");
 			GameObject gameManager = GameObject.Find ("Game Manager"); 
 			gameManager.SendMessage ("GameOver"); 
+		}
+
     }
 }
