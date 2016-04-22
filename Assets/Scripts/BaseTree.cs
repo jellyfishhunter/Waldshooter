@@ -20,5 +20,7 @@ public class BaseTree : MonoBehaviour {
         hp -= bullet.GetComponent<Bullet>().hitValue;
         if (hp <= 0)
             Debug.Log("Base destroyed");
+			GameObject gameManager = GameObject.Find ("Game Manager"); 
+			gameManager.SendMessage ("GameOver"); 
     }
 }
