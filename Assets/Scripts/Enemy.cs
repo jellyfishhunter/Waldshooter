@@ -15,11 +15,17 @@ public class Enemy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        agent = GetComponent<NavMeshAgent>();
         targetTransform = chooseTarget();
-        agent.destination = targetTransform.position;
-        agent.Resume();
+        moveToTarget();
 	}
+
+    void moveToTarget()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        agent.destination = targetTransform.position;
+        agent.stoppingDistance = range;
+        agent.Resume();
+    }
 
     public void initialize()
     {
@@ -28,19 +34,32 @@ public class Enemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(timeUntilnextShot <= 0)
-        {
-            shoot();
-            timeUntilnextShot = attackIntervall;
-            Debug.Log("shoot");
-        }
-        timeUntilnextShot -= Time.deltaTime;
+        aimAndShoot();
     }
 
     // TODO add player and building detection
     Transform chooseTarget()
     {
         return GameObject.FindGameObjectWithTag("Base Tree").transform;
+    }
+
+    void aimAndShoot()
+    {
+        // aim
+        face(targetTransform.position);
+
+        // range check
+        bool targetInRange = Vector3.Distance(targetTransform.position, transform.position) <= range;
+
+        // reload and shoot
+        if (timeUntilnextShot <= 0 && targetInRange)
+        {
+            shoot();
+            timeUntilnextShot = attackIntervall;
+            Debug.Log("shoot");
+        }
+        
+        timeUntilnextShot -= Time.deltaTime;
     }
 
     void shoot ()
@@ -54,11 +73,20 @@ public class Enemy : MonoBehaviour {
     public void hit(GameObject bullet)
     {
         hp -= bullet.GetComponent<Bullet>().hitValue;
+        if (hp <= 0)
+        {
+            die();
+        }
     }
 
-    public void face(GameObject target)
+    // TODO: enemy counter etc
+    void die()
     {
-        Vector3 t = target.transform.position;
+        Destroy(gameObject);
+    }
+
+    public void face(Vector3 t)
+    {
         Vector3 direction = (new Vector3(t.x, transform.position.y, t.z) - transform.position).normalized;
         if (direction != Vector3.zero)
         {
