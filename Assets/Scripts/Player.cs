@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     private float nextFire;
 
     public GameObject prefab;
-    public float distance = 10.0f;
+    public float distance = 50.0f;
 
     void Start()
     {
@@ -51,6 +51,8 @@ public class Player : MonoBehaviour
 
             var position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
             position = Camera.main.ScreenToWorldPoint(position);
+            //position = Camera.main.ViewportToScreenPoint(position);
+            position = new Vector3(position.x, 0, position.z);
             var go = Instantiate(prefab, transform.position, Quaternion.identity) as GameObject;
             go.transform.LookAt(position);
             Debug.Log(position);
