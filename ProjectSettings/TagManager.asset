@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - Base Tree
+  - Building
+  - Collectable
   layers:
   - Default
   - TransparentFX
