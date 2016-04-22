@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Tree : MonoBehaviour {
+public class BaseTree : MonoBehaviour {
 
-	public int hp = 100; 
+    public int hp;
 
 	// Use this for initialization
 	void Start () {
@@ -12,21 +12,15 @@ public class Tree : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.A)) {
-			GetHit (50); 
-		}
+	
 	}
 
-	void GetHit(int hitAmount){
-		hp -= hitAmount; 
-		if (hp <= 0) {
-			Debug.Log ("Tree is dead"); 
+    public void hit(GameObject bullet)
+    {
+        hp -= bullet.GetComponent<Bullet>().hitValue;
+        if (hp <= 0)
+            Debug.Log("Base destroyed");
 			GameObject gameManager = GameObject.Find ("Game Manager"); 
 			gameManager.SendMessage ("GameOver"); 
-			Destroy (this.gameObject); 
-
-		}
-	}
-
-
+    }
 }
