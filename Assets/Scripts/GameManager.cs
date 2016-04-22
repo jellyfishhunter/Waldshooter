@@ -8,11 +8,17 @@ public class GameManager : MonoBehaviour {
 	private enum States{gameover, fightloop, buildloop, start};
 	private States myState;
 
+	[Header("Loop Timers")]
 	public float fightLoopTime = 5.0f; 
 	public float buildLooptime = 5.0f; 
 
+	[Header("Enemy related Stuff (Lists)")]
 	public List<Transform> enemySpawnPoints; 
 	public List<GameObject> enemys; 
+
+	[Header("Audio Files")]
+	public AudioClip fightLoopAudio; 
+	public AudioClip buildLoopAudio; 
 
 	bool isSpawningEnemys = false; 
 	bool loopTimerActive = false; 
