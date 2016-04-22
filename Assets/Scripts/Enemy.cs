@@ -89,6 +89,7 @@ public class Enemy : MonoBehaviour {
         GameObject bulletInstance = Instantiate(bullet, bulletSpawnPosition, transform.rotation) as GameObject;
         Bullet bulletScript = bulletInstance.GetComponent<Bullet>();
         bulletScript.isPlayerBullet = false;
+        bulletScript.range = range;
     }
 
     public void hit(GameObject bullet)
