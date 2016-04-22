@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  hitValue: 1
+  hitValue: 20
   isPlayerBullet: 0
 --- !u!135 &13568414
 SphereCollider:
