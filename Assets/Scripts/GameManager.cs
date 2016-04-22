@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour {
 			Debug.Log ("Game Over"); 
 		}
 	}
-
+		
 	IEnumerator SpawnEnemys(GameObject enemy, Transform spawnPosition, float waitTime){
 		GameObject myEnemy = (GameObject)Instantiate (enemy, spawnPosition.position, Quaternion.identity); 
 		Debug.Log ("Enemy spawned"); 
