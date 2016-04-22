@@ -34,8 +34,6 @@ public class Player : MonoBehaviour
     {
         var move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         PlayerRigidbody.position += move * Speed * Time.deltaTime;
-        //Debug.Log("Horizontal: " + Input.GetAxis("Horizontal").ToString());
-        //Debug.Log("Vertical: " + Input.GetAxis("Vertical").ToString());
 
 
     }
