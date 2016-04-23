@@ -423,7 +423,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22463274, guid: 7343dba2cf7eb4565a656f3348da5f24, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0.988827
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 22463274, guid: 7343dba2cf7eb4565a656f3348da5f24, type: 2}
       propertyPath: m_SizeDelta.x
@@ -469,6 +469,22 @@ Prefab:
       propertyPath: bulletSpawn
       value: 
       objectReference: {fileID: 2116911859}
+    - target: {fileID: 11495044, guid: 7343dba2cf7eb4565a656f3348da5f24, type: 2}
+      propertyPath: PlayerBullet
+      value: 
+      objectReference: {fileID: 149018, guid: e1bb0ec48f790cd46a27ea034fb61b6c, type: 2}
+    - target: {fileID: 448082, guid: 7343dba2cf7eb4565a656f3348da5f24, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 437368, guid: 7343dba2cf7eb4565a656f3348da5f24, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 6583992, guid: 7343dba2cf7eb4565a656f3348da5f24, type: 2}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7343dba2cf7eb4565a656f3348da5f24, type: 2}
   m_IsPrefabParent: 0
@@ -767,7 +783,7 @@ MonoBehaviour:
   Health: 100
   Money: 0
   fireRate: 0.2
-  prefab: {fileID: 149018, guid: e1bb0ec48f790cd46a27ea034fb61b6c, type: 2}
+  PlayerBullet: {fileID: 0}
   distance: 10
   bulletSpawn: {fileID: 0}
 --- !u!114 &1885494787
@@ -906,7 +922,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2116911858}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.603}
+  m_LocalPosition: {x: 0, y: 0.08, z: 1.603}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1036893020}
