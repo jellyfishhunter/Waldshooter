@@ -79,4 +79,10 @@ public class Player : MonoBehaviour
             //die();
         }
     }
+
+    public void collectLoot(Loot loot)
+    {
+        Debug.Log("Got Loot!");
+        Money += loot.value;
+    }
 }
