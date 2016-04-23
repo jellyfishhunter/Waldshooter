@@ -14,7 +14,7 @@ GameObject:
   - 54: {fileID: 5425924}
   - 114: {fileID: 11460452}
   m_Layer: 0
-  m_Name: Enemy Bullet 1
+  m_Name: Enemy Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63ce6f6ac2b4b604791a94d5c2c53f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 5
   hitValue: 5
   isPlayerBullet: 0
   range: 100
