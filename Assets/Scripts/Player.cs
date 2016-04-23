@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// TODO was passiert, wenn der spieler stirbt?
 public class Player : MonoBehaviour
 {
 
@@ -64,6 +65,18 @@ public class Player : MonoBehaviour
             Debug.Log(position);
             go.GetComponent<Rigidbody>().AddForce(go.transform.forward * 1000);
 
+        }
+    }
+
+    public void hit(GameObject bullet)
+    {
+        Debug.Log("Player Hit");
+
+        Health -= bullet.GetComponent<Bullet>().hitValue;
+        if (Health <= 0)
+        {
+            Debug.Log("Player Dead");
+            //die();
         }
     }
 }

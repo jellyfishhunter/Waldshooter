@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        // player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         targetTransform = chooseTarget();
         moveToTarget();
 	}
@@ -48,8 +48,8 @@ public class Enemy : MonoBehaviour {
 
     Transform chooseTarget()
     {
-        //if (inRangeOf(player))
-        //    return player.transform;
+        if (inRangeOf(player))
+            return player.transform;
 
         GameObject[] buildings = GameObject.FindGameObjectsWithTag("Building");
 
