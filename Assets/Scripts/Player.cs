@@ -5,7 +5,12 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
 
-    public float Speed = 4f;
+	private enum States{running, shooting};
+	private States myState;
+
+    public float RunSpeed = 10f;
+	public float ShootingSpeed = 4f;
+	private float speed; 
     private float move = 0f;
     public float tilt;
 
@@ -20,10 +25,13 @@ public class Player : MonoBehaviour
     public float distance = 10.0f;
 
     public Transform bulletSpawn;
+	public Transform gunTrail; 
 
     void Start()
     {
+		myState = States.running; 
         PlayerRigidbody = this.GetComponent<Rigidbody>();
+		gunTrail.gameObject.SetActive (false); 
     }
 
 	void LookAtMouse () 
@@ -58,24 +66,46 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        Move();
-        if (Input.GetButton("Fire2"))
-            Shoot();
-		//LookAtMouse (); 
-		 
+
+		if (Input.GetButton ("Fire2")) {
+			myState = States.shooting; 
+		} else {
+			myState = States.running; 
+		}
+
+
+		if (myState == States.running) {
+			speed = RunSpeed;
+			gunTrail.gameObject.SetActive (false); 
+			ViewToDirection (); 
+			Camera.main.gameObject.SendMessage ("MoveIn"); 
+		}
+
+		if (myState == States.shooting) {
+			speed = ShootingSpeed; 
+			Shoot ();
+			gunTrail.gameObject.SetActive (true); 
+			Camera.main.gameObject.SendMessage ("MoveOut"); 
+		}
+		Move(); 
     }
 
     void Move()
     {
         var move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        PlayerRigidbody.position += move * Speed * Time.deltaTime;
+		PlayerRigidbody.position += move * speed * Time.deltaTime;
         //Debug.Log("Horizontal: " + Input.GetAxis("Horizontal").ToString());
         //Debug.Log("Vertical: " + Input.GetAxis("Vertical").ToString());
 
         //transform.rotation = Quaternion.LookRotation(move);
 
-        face(PlayerRigidbody.position + move);
     }
+
+	void ViewToDirection(){
+		var move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+		face(PlayerRigidbody.position + move);
+
+	}
 
     void Shoot()
     {
