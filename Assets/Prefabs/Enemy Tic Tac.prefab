@@ -78,8 +78,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 5
   range: 10
-  dropObject: {fileID: 112820, guid: 68aa54549a268c94699e6eb159d21904, type: 2}
-  bullet: {fileID: 122270, guid: e953d4651912e814c8702a1b4a80f67a, type: 2}
+  dropObject: {fileID: 0}
+  bullet: {fileID: 149018, guid: e1bb0ec48f790cd46a27ea034fb61b6c, type: 2}
   attackIntervall: 1
 --- !u!136 &13636148
 CapsuleCollider:
