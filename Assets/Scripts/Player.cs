@@ -11,13 +11,15 @@ public class Player : MonoBehaviour
 
     public int Health;
     public int Money;
-    public Rigidbody PlayerRigidbody;
+    Rigidbody PlayerRigidbody;
 
     public float fireRate;
     private float nextFire;
 
-    public GameObject prefab;
+    public GameObject PlayerBullet;
     public float distance = 10.0f;
+
+    public Transform bulletSpawn;
 
     void Start()
     {
@@ -57,7 +59,8 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         Move();
-        Shoot();
+        if (Input.GetButton("Fire2"))
+            Shoot();
 		//LookAtMouse (); 
 		 
     }
@@ -76,19 +79,14 @@ public class Player : MonoBehaviour
 
     void Shoot()
     {
-
+        Vector3 position = aim();
+        face(position);
 
         if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
             Debug.Log("Shoot-Funktion");
             nextFire = Time.time + fireRate;
 
-            Vector3 position;
-            RaycastHit hit;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Physics.Raycast(ray, out hit);
-            position = hit.point;
-            
             /*
             var position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
             position = Camera.main.ScreenToWorldPoint(position);
@@ -97,12 +95,20 @@ public class Player : MonoBehaviour
            // go.transform.LookAt(position);
             */
 
-            var go = Instantiate(prefab, transform.position, Quaternion.identity) as GameObject;
-            go.transform.LookAt(position);
+            var go = Instantiate(PlayerBullet, bulletSpawn.position, bulletSpawn.rotation) as GameObject;
+            //go.transform.LookAt(position);
             Debug.Log(position);
-            go.GetComponent<Rigidbody>().AddForce(go.transform.forward * 1000);
+            //go.GetComponent<Rigidbody>().AddForce(go.transform.forward * 1000);
 
         }
+    }
+
+    Vector3 aim()
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Physics.Raycast(ray, out hit);
+        return hit.point;
     }
 
     public void hit(GameObject bullet)
