@@ -90,9 +90,16 @@ public class Player : MonoBehaviour
             /*
             var position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
             position = Camera.main.ScreenToWorldPoint(position);
+<<<<<<< Updated upstream
             
 			var go = Instantiate(prefab, transform.position, transform.rotation) as GameObject;
            // go.transform.LookAt(position);
+=======
+
+			var go = Instantiate(prefab, transform.position, transform.rotation) as GameObject;
+           // go.transform.LookAt(position);
+
+>>>>>>> Stashed changes
             */
 
             var go = Instantiate(PlayerBullet, bulletSpawn.position, bulletSpawn.rotation) as GameObject;
