@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// TODO AI verhalten überdenken
 public class Enemy : MonoBehaviour {
 
     public int hp;
@@ -9,12 +10,14 @@ public class Enemy : MonoBehaviour {
     public GameObject bullet;
     public float attackIntervall;
 
+    GameObject player;
     Transform targetTransform;
     NavMeshAgent agent;
     float timeUntilnextShot = 0;
 
 	// Use this for initialization
 	void Start () {
+        player = GameObject.FindGameObjectWithTag("Player");
         targetTransform = chooseTarget();
         moveToTarget();
 	}
@@ -34,12 +37,30 @@ public class Enemy : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        targetTransform = chooseTarget();
         aimAndShoot();
     }
 
-    // TODO add player and building detection
+    bool inRangeOf(GameObject other)
+    {
+        return (Vector3.Distance(other.transform.position, transform.position) <= range);
+    }
+
     Transform chooseTarget()
     {
+        if (inRangeOf(player))
+            return player.transform;
+
+        GameObject[] buildings = GameObject.FindGameObjectsWithTag("Building");
+
+        foreach (GameObject building in buildings)
+        {
+            if (inRangeOf(building))
+            {
+                return building.transform;
+            }
+        }
+
         return GameObject.FindGameObjectWithTag("Base Tree").transform;
     }
 
@@ -68,6 +89,7 @@ public class Enemy : MonoBehaviour {
         GameObject bulletInstance = Instantiate(bullet, bulletSpawnPosition, transform.rotation) as GameObject;
         Bullet bulletScript = bulletInstance.GetComponent<Bullet>();
         bulletScript.isPlayerBullet = false;
+        bulletScript.range = range;
     }
 
     public void hit(GameObject bullet)
@@ -82,6 +104,13 @@ public class Enemy : MonoBehaviour {
     // TODO: enemy counter etc
     void die()
     {
+        int lootCount = Random.Range(0, 5);
+
+        for (int i = 0; i<lootCount; i++)
+        {
+            Instantiate(dropObject, transform.position, Random.rotation);
+        }
+
         Destroy(gameObject);
     }
 

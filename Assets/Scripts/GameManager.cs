@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour {
 
 	bool isSpawningEnemys = false; 
 	bool loopTimerActive = false; 
+	int waveSize = 0; 
 
 	void Start () {
 		myState = States.fightloop; 
@@ -37,6 +38,9 @@ public class GameManager : MonoBehaviour {
 
 		//BUILDLOOP
 		if (myState == States.buildloop) {
+			waveSize = 0; 
+			Cursor.visible = true;
+
 			if (!loopTimerActive) {
 				StartCoroutine (LoopTimer (buildLooptime, myState, States.fightloop)); 
 				loopTimerActive = true; 
@@ -45,13 +49,16 @@ public class GameManager : MonoBehaviour {
 
 		//FIGHTLOOP
 		if (myState == States.fightloop) {
-			if (!isSpawningEnemys) {
-				StartCoroutine(SpawnEnemys (enemys[0], enemySpawnPoints[Random.Range(0,enemySpawnPoints.Count)], 1.0f)); 
+			Cursor.visible = false;
+
+			if(!isSpawningEnemys) {
+				StartCoroutine(SpawnEnemys (enemys[0], enemySpawnPoints[Random.Range(0, enemySpawnPoints.Count)], 0.01f)); 
 				isSpawningEnemys = true; 
+				waveSize++; 
 			}
-			if (!loopTimerActive) {
-				StartCoroutine (LoopTimer (fightLoopTime, myState, States.buildloop)); 
-				loopTimerActive = true; 
+
+			if (waveSize >= 10) {
+				myState = States.buildloop; 
 			}
 		}
 
@@ -60,11 +67,11 @@ public class GameManager : MonoBehaviour {
 			Debug.Log ("Game Over"); 
 		}
 	}
-
+		
 	IEnumerator SpawnEnemys(GameObject enemy, Transform spawnPosition, float waitTime){
 		GameObject myEnemy = (GameObject)Instantiate (enemy, spawnPosition.position, Quaternion.identity); 
-		Debug.Log ("Enemy spawned"); 
-		yield return new WaitForSeconds (waitTime); 
+		Debug.Log ("Enemy spawned, wave: "+waveSize); 
+		yield return new WaitForSeconds (0.5f); 
 		isSpawningEnemys = false;
 	}
 
