@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour {
 			Cursor.visible = false;
 
 			if(!isSpawningEnemys) {
-				StartCoroutine(SpawnEnemys (enemys[0], enemySpawnPoints[0], 0.01f)); 
+				StartCoroutine(SpawnEnemys (enemys[0], enemySpawnPoints[Random.Range(0, enemySpawnPoints.Count)], 0.01f)); 
 				isSpawningEnemys = true; 
 				waveSize++; 
 			}
