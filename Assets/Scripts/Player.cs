@@ -47,10 +47,18 @@ public class Player : MonoBehaviour
             Debug.Log("Shoot-Funktion");
             nextFire = Time.time + fireRate;
 
+            Vector3 position;
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Physics.Raycast(ray, out hit);
+            position = hit.point;            
+            
 
-
+            /*
             var position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
             position = Camera.main.ScreenToWorldPoint(position);
+            */
+
             var go = Instantiate(prefab, transform.position, Quaternion.identity) as GameObject;
             go.transform.LookAt(position);
             Debug.Log(position);

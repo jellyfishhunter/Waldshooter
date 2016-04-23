@@ -651,7 +651,7 @@ MonoBehaviour:
   Health: 0
   Money: 0
   PlayerRigidbody: {fileID: 0}
-  fireRate: 0
+  fireRate: 0.2
   prefab: {fileID: 149018, guid: e1bb0ec48f790cd46a27ea034fb61b6c, type: 2}
   distance: 10
 --- !u!114 &1885494787
