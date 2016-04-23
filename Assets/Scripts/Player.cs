@@ -69,12 +69,15 @@ public class Player : MonoBehaviour
         //Debug.Log("Horizontal: " + Input.GetAxis("Horizontal").ToString());
         //Debug.Log("Vertical: " + Input.GetAxis("Vertical").ToString());
 
-		transform.rotation = Quaternion.LookRotation(move);
+        //transform.rotation = Quaternion.LookRotation(move);
 
+        face(PlayerRigidbody.position + move);
     }
 
     void Shoot()
     {
+
+
         if (Input.GetButton("Fire1") && Time.time > nextFire)
         {
             Debug.Log("Shoot-Funktion");
@@ -84,22 +87,18 @@ public class Player : MonoBehaviour
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Physics.Raycast(ray, out hit);
-            position = hit.point;            
+            position = hit.point;
             
-
             /*
             var position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
             position = Camera.main.ScreenToWorldPoint(position);
-<<<<<<< HEAD
             
 			var go = Instantiate(prefab, transform.position, transform.rotation) as GameObject;
            // go.transform.LookAt(position);
-=======
             */
 
             var go = Instantiate(prefab, transform.position, Quaternion.identity) as GameObject;
             go.transform.LookAt(position);
->>>>>>> origin/master
             Debug.Log(position);
             go.GetComponent<Rigidbody>().AddForce(go.transform.forward * 1000);
 
@@ -122,5 +121,15 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Got Loot!");
         Money += loot.value;
+    }
+
+    public void face(Vector3 t)
+    {
+        Vector3 direction = (new Vector3(t.x, PlayerRigidbody.position.y, t.z) - PlayerRigidbody.position).normalized;
+        if (direction != Vector3.zero)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            PlayerRigidbody.rotation = Quaternion.Slerp(PlayerRigidbody.rotation, lookRotation, Time.deltaTime * 10f);
+        }
     }
 }
