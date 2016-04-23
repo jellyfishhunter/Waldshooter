@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// TODO was passiert, wenn der spieler stirbt?
 public class Player : MonoBehaviour
 {
 
@@ -79,16 +80,47 @@ public class Player : MonoBehaviour
             Debug.Log("Shoot-Funktion");
             nextFire = Time.time + fireRate;
 
+            Vector3 position;
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Physics.Raycast(ray, out hit);
+            position = hit.point;            
+            
 
-
+            /*
             var position = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
             position = Camera.main.ScreenToWorldPoint(position);
+<<<<<<< HEAD
             
 			var go = Instantiate(prefab, transform.position, transform.rotation) as GameObject;
            // go.transform.LookAt(position);
+=======
+            */
+
+            var go = Instantiate(prefab, transform.position, Quaternion.identity) as GameObject;
+            go.transform.LookAt(position);
+>>>>>>> origin/master
             Debug.Log(position);
             go.GetComponent<Rigidbody>().AddForce(go.transform.forward * 1000);
 
         }
+    }
+
+    public void hit(GameObject bullet)
+    {
+        Debug.Log("Player Hit");
+
+        Health -= bullet.GetComponent<Bullet>().hitValue;
+        if (Health <= 0)
+        {
+            Debug.Log("Player Dead");
+            //die();
+        }
+    }
+
+    public void collectLoot(Loot loot)
+    {
+        Debug.Log("Got Loot!");
+        Money += loot.value;
     }
 }

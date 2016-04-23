@@ -12,7 +12,11 @@ public class BaseTree : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+<<<<<<< HEAD
 	//	Debug.Log (hp); 
+=======
+		//Debug.Log (hp); 
+>>>>>>> origin/master
 	}
 
     public void hit(GameObject bullet)
